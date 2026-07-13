@@ -1,4 +1,4 @@
-// input.js
+// input.js (Güncellenmiş Joystick Mantığı)
 class InputManager {
     constructor() {
         this.keys = {};
@@ -12,50 +12,45 @@ class InputManager {
             this.mouse.y = e.clientY;
         });
 
-        // HTML DOM Yüklendikten sonra Joystick eventlerini bağla
-        window.addEventListener('DOMContentLoaded', () => {
-            const zone = document.getElementById('joystick-zone');
-            const stick = document.getElementById('joystick-stick');
-            let touchId = null;
-            let startPos = new Vec2();
-
-            zone.addEventListener('touchstart', e => {
-                e.preventDefault(); // Ekranın yenilenmesini engeller
-                const touch = e.changedTouches[0];
-                touchId = touch.identifier;
-                const rect = zone.getBoundingClientRect();
-                startPos = new Vec2(rect.left + 75, rect.top + 75); // 150px genişlik
-                this.updateJoystick(touch.clientX, touch.clientY, startPos, stick);
-            }, {passive: false});
-
-            zone.addEventListener('touchmove', e => {
-                e.preventDefault();
-                for(let i=0; i<e.changedTouches.length; i++) {
-                    if(e.changedTouches[i].identifier === touchId) {
-                        this.updateJoystick(e.changedTouches[i].clientX, e.changedTouches[i].clientY, startPos, stick);
-                    }
-                }
-            }, {passive: false});
-
-            const resetJoy = (e) => {
-                e.preventDefault();
-                for(let i=0; i<e.changedTouches.length; i++) {
-                    if(e.changedTouches[i].identifier === touchId) {
-                        touchId = null;
-                        this.joystickDir = new Vec2();
-                        stick.style.transform = `translate(0px, 0px)`;
-                    }
-                }
-            };
-            zone.addEventListener('touchend', resetJoy);
-            zone.addEventListener('touchcancel', resetJoy);
-        });
+        // Mobil için Joystick'i her zaman hazır tut
+        this.initJoystick();
     }
 
-    updateJoystick(x, y, start, stick) {
-        let delta = new Vec2(x - start.x, y - start.y);
-        let dist = delta.mag();
-        if(dist > 50) { delta = delta.normalize().mult(50); } // Sınır dışına çıkmasın
+    initJoystick() {
+        const zone = document.getElementById('joystick-zone');
+        const stick = document.getElementById('joystick-stick');
+        let touchId = null;
+
+        zone.addEventListener('touchstart', e => {
+            e.preventDefault();
+            const touch = e.changedTouches[0];
+            touchId = touch.identifier;
+            this.moveStick(touch.clientX, touch.clientY, zone, stick);
+        }, {passive: false});
+
+        zone.addEventListener('touchmove', e => {
+            e.preventDefault();
+            for(let i=0; i<e.changedTouches.length; i++) {
+                if(e.changedTouches[i].identifier === touchId) {
+                    this.moveStick(e.changedTouches[i].clientX, e.changedTouches[i].clientY, zone, stick);
+                }
+            }
+        }, {passive: false});
+
+        const resetJoy = (e) => {
+            touchId = null;
+            this.joystickDir = new Vec2();
+            stick.style.transform = `translate(0px, 0px)`;
+        };
+        window.addEventListener('touchend', resetJoy);
+    }
+
+    moveStick(x, y, zone, stick) {
+        const rect = zone.getBoundingClientRect();
+        const centerX = rect.left + 75;
+        const centerY = rect.top + 75;
+        let delta = new Vec2(x - centerX, y - centerY);
+        if(delta.mag() > 50) delta = delta.normalize().mult(50);
         stick.style.transform = `translate(${delta.x}px, ${delta.y}px)`;
         this.joystickDir = delta.normalize();
     }
@@ -63,17 +58,14 @@ class InputManager {
     isDown(code) { return !!this.keys[code]; }
 
     getAxis() {
-        // Eğer ayarlardan mobil seçildiyse doğrudan Joystick yönünü ver
         if (SaveSystem.data && SaveSystem.data.controlMode === 'mobile') {
             return this.joystickDir;
         }
-
-        // Değilse klavye
         let x = 0, y = 0;
-        if (this.isDown('KeyW') || this.isDown('ArrowUp')) y -= 1;
-        if (this.isDown('KeyS') || this.isDown('ArrowDown')) y += 1;
-        if (this.isDown('KeyA') || this.isDown('ArrowLeft')) x -= 1;
-        if (this.isDown('KeyD') || this.isDown('ArrowRight')) x += 1;
+        if (this.isDown('KeyW')) y -= 1;
+        if (this.isDown('KeyS')) y += 1;
+        if (this.isDown('KeyA')) x -= 1;
+        if (this.isDown('KeyD')) x += 1;
         return new Vec2(x, y).normalize();
     }
 }
