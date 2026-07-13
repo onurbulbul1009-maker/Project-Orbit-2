@@ -6,11 +6,19 @@ class Game {
         this.ui = new UIManager();
         SaveSystem.load();
     }
-    start() {
-        this.reset();
-        this.state = 'PLAY';
-        this.ui.showScreen('hud');
+   start() {
+    this.reset();
+    this.state = 'PLAY';
+    this.ui.showScreen('hud');
+    
+    // Joystick görünürlüğü
+    const joy = document.getElementById('joystick-zone');
+    if (SaveSystem.data.controlMode === 'mobile') {
+        joy.style.display = 'block'; 
+    } else {
+        joy.style.display = 'none';
     }
+}
     reset() {
         this.player = new Player(0, 0);
         this.camera = new Camera();
