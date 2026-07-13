@@ -17,8 +17,7 @@ class Game {
         joy.style.display = 'block'; 
     } else {
         joy.style.display = 'none';
-    }
-}
+    } }
     reset() {
         this.player = new Player(0, 0);
         this.camera = new Camera();
@@ -165,6 +164,9 @@ class Game {
         const ctx = this.renderer.ctx;
         this.camera.apply(ctx);
         this.renderer.drawGrid(this.camera);
+        ctx.strokeStyle = '#ff0055';
+        ctx.lineWidth = 10;
+        ctx.strokeRect(-Config.WORLD_SIZE/2, -Config.WORLD_SIZE/2, Config.WORLD_SIZE, Config.WORLD_SIZE);
         
         // Şok Dalgası Çizimi
         if(this.drawShockwave) {
