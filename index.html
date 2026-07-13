@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Arcane Orbit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        
+        <div id="ui-layer">
+            <div id="main-menu" class="screen active">
+                <h1>Arcane Orbit</h1>
+                <input type="text" id="player-name-input" placeholder="Kahramanın Adı" maxlength="15">
+                <button id="btn-play">Oyna</button>
+                <button id="btn-shop">Kalıcı Market</button>
+                <button id="btn-settings">Ayarlar</button>
+            </div>
+
+            <div id="settings-screen" class="screen">
+                <h2>Ayarlar</h2>
+                <div class="setting-row">
+                    <label>Nişan Alma:</label>
+                    <select id="setting-aim">
+                        <option value="auto">Otomatik (En Yakına)</option>
+                        <option value="manual">Manuel (Fare ile)</option>
+                    </select>
+                </div>
+                <div class="setting-row">
+                    <label>Hareket Kontrolü:</label>
+                    <select id="setting-control">
+                        <option value="pc">Bilgisayar (Klavye/WASD)</option>
+                        <option value="mobile">Mobil (Sanal Joystick)</option>
+                    </select>
+                </div>
+                <div class="setting-row">
+                    <label>Karakter Rengi:</label>
+                    <input type="color" id="setting-color" value="#00ffcc">
+                </div>
+                <br>
+                <button id="btn-settings-back">Kaydet ve Geri Dön</button>
+                <div class="danger-zone">
+                    <button id="btn-reset-save" class="danger-btn">Tüm İlerlemeyi Sıfırla</button>
+                </div>
+            </div>
+
+            <div id="hud" class="screen">
+                <div class="top-bar">
+                    <div class="hp-bar-container">
+                        <div id="hp-bar"></div>
+                        <span id="player-name-display">İsimsiz</span>
+                    </div>
+                    <div id="coin-display">Altın: <span>0</span></div>
+                    <div id="timer-display">00:00</div>
+                </div>
+                <div class="exp-bar-container"><div id="exp-bar"></div></div>
+                <div id="joystick-zone"><div id="joystick-stick"></div></div>
+            </div>
+
+            <div id="upgrade-screen" class="screen">
+                <h2>Seviye Atladın!</h2>
+                <div id="upgrade-cards" class="card-container"></div>
+            </div>
+
+            <div id="pause-screen" class="screen">
+                <h2>Oyun Duraklatıldı</h2>
+                <button id="btn-resume">Devam Et</button>
+                <button id="btn-menu">Ana Menü</button>
+            </div>
+
+            <div id="game-over-screen" class="screen">
+                <h2>Oyun Bitti</h2>
+                <p>Ulaşılan Dalga: <span id="go-waves">0</span></p>
+                <p>Kazanılan Altın: <span id="go-coins">0</span></p>
+                <button id="btn-restart">Tekrar Oyna</button>
+                <button id="btn-go-menu">Ana Menü</button>
+            </div>
+
+            <div id="shop-screen" class="screen">
+                <h2>Kalıcı Geliştirmeler</h2>
+                <div id="shop-coins">Mevcut Altın: <span>0</span></div>
+                <div id="shop-items" class="card-container" style="flex-wrap: wrap; justify-content: center; max-width: 900px;"></div>
+                <button id="btn-shop-back">Geri</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="config.js"></script>
+    <script src="math.js"></script>
+    <script src="save.js"></script>
+    <script src="audio.js"></script>
+    <script src="assetLoader.js"></script>
+    <script src="input.js"></script>
+    <script src="camera.js"></script>
+    <script src="renderer.js"></script>
+    <script src="ui.js"></script>
+    <script src="effects.js"></script>
+    <script src="particles.js"></script>
+    <script src="collision.js"></script>
+    <script src="upgrade.js"></script>
+    <script src="entity.js"></script>
+    <script src="projectile.js"></script>
+    <script src="player.js"></script>
+    <script src="enemy.js"></script>
+    <script src="boss.js"></script>
+    <script src="waveManager.js"></script>
+    <script src="game.js"></script>
+    <script src="engine.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

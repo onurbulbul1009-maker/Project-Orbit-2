@@ -1,0 +1,43 @@
+/* style.css */
+* { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
+body { background: #060614; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; touch-action: none; }
+#game-container { position: relative; width: 100vw; height: 100vh; }
+canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+#ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); pointer-events: auto; }
+.screen.active { display: flex; }
+#hud { background: none; pointer-events: none; justify-content: space-between; }
+#hud.active { display: flex; }
+.top-bar { width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+.hp-bar-container, .exp-bar-container { background: #222; border: 2px solid #555; border-radius: 10px; overflow: hidden; position: relative; }
+.hp-bar-container { width: 300px; height: 28px; }
+#hp-bar { width: 100%; height: 100%; background: linear-gradient(90deg, #c0392b, #e74c3c); transition: width 0.2s; }
+#player-name-display { position: absolute; width: 100%; top: 0; left: 0; text-align: center; line-height: 24px; font-weight: bold; text-shadow: 1px 1px 2px #000; }
+.exp-bar-container { width: 80%; height: 14px; margin-bottom: 20px; }
+#exp-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #2980b9, #3498db); transition: width 0.2s; }
+button { padding: 15px 40px; margin: 10px; font-size: 20px; font-weight: bold; background: #2c3e50; color: #fff; border: 2px solid #34495e; border-radius: 8px; cursor: pointer; transition: 0.2s; pointer-events: auto; }
+button:hover { background: #34495e; transform: scale(1.05); }
+.danger-btn { background: #c0392b !important; border-color: #e74c3c !important; }
+.danger-btn:hover { background: #e74c3c !important; }
+.danger-zone { margin-top: 50px; border-top: 1px solid #555; padding-top: 20px; }
+input[type="text"] { padding: 15px; font-size: 20px; text-align: center; border-radius: 8px; border: 2px solid #3498db; background: #111; color: #fff; margin-bottom: 20px; outline: none; }
+input[type="text"]:focus { border-color: #00ffcc; }
+.setting-row { display: flex; align-items: center; justify-content: space-between; width: 400px; margin: 15px 0; background: #1a1a2e; padding: 15px 25px; border-radius: 10px; border: 1px solid #333; }
+.setting-row label { font-size: 20px; font-weight: bold; }
+select, input[type="color"] { font-size: 18px; padding: 5px; cursor: pointer; background: #222; color: #fff; border: 1px solid #555; border-radius: 5px; }
+input[type="color"] { height: 40px; width: 60px; padding: 2px; }
+.card-container { display: flex; gap: 20px; margin-top: 30px; }
+.upgrade-card { background: #1a1a2e; border: 2px solid #4a4e69; border-radius: 10px; padding: 20px; width: 250px; cursor: pointer; text-align: center; transition: 0.2s; pointer-events: auto; position: relative; }
+.upgrade-card:hover { transform: translateY(-10px); border-color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+.upgrade-card h3 { color: #fff; margin-bottom: 10px; }
+.upgrade-card p { font-size: 14px; color: #ccc; }
+.rarity-common { border-color: #a0a0a0; }
+.rarity-rare { border-color: #3498db; }
+.rarity-epic { border-color: #9b59b6; }
+.rarity-legendary { border-color: #f1c40f; }
+h1 { font-size: 64px; margin-bottom: 40px; color: #00ffcc; text-shadow: 0 0 20px rgba(0,255,204,0.5); }
+h2 { font-size: 48px; margin-bottom: 20px; }
+
+/* Mobil Joystick Stilleri */
+#joystick-zone { position: absolute; bottom: 30px; left: 30px; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.3); display: none; pointer-events: auto; touch-action: none; }
+#joystick-stick { position: absolute; top: 50px; left: 50px; width: 50px; height: 50px; border-radius: 50%; background: rgba(0, 255, 204, 0.6); pointer-events: none; }
